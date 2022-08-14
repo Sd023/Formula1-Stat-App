@@ -34,12 +34,11 @@ import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 
-public class MainActivity extends AppCompatActivity implements VolleyCallback {
+public class MainActivity extends AppCompatActivity{
 
     Button fetchData;
     RequestQueue requestQueue;
     ArrayList<HashMap<String,String>> driverDetailList;
-    VolleyCallback callback;
 
 
     @Override
@@ -94,16 +93,6 @@ public class MainActivity extends AppCompatActivity implements VolleyCallback {
         });
 
         requestQueue.add(driverDetailsRequest);
-
-    }
-
-    @Override
-    public void responseOK(HashMap<String, String> hashMapDriver) {
-
-    }
-
-    @Override
-    public void responseError(String error) {
 
     }
 }
