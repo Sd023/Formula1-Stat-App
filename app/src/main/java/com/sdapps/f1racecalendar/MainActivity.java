@@ -50,51 +50,36 @@ public class MainActivity extends AppCompatActivity implements VolleyCallback {
 
         fetchData = (Button) findViewById(R.id.fetchDriver);
         driverDetailList = new ArrayList<>();
-        String url  = "https://ergast.com/api/f1/2022/drivers/bottas.json";
+        String url  = "https://ergast.com/api/f1/2022/drivers/hamilton.json";
         requestQueue = Volley.newRequestQueue(this);
 
         fetchData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getJsonResponse(url, new VolleyCallback() {
+                Handler handler = new Handler();
+                handler.post(new Runnable() {
                     @Override
-                    public void responseOK(HashMap<String, String> driverNameList) {
-                        Log.d("STATUS OK", ": "+ driverNameList.get("driverFirstName"));
-                    }
-
-                    @Override
-                    public void responseError(String error) {
-                       Log.d("STATUS", "FAILED");
+                    public void run() {
+                        getJsonResponse(url);
                     }
                 });
+
             }
         });
     }
 
-    private void getJsonResponse(String url, final VolleyCallback callback){
-
-
+    private void getJsonResponse(String url){
         JsonObjectRequest driverDetailsRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try{
                     JSONObject MRdata = response.getJSONObject("MRData");
-                    for(int mrData = 0; mrData< MRdata.length(); mrData++){
-                       JSONObject driverTable = MRdata.getJSONObject("DriverTable");
-                        for(int i=0; i<driverTable.length(); i++){
-                            JSONArray driver = driverTable.getJSONArray("Drivers");
-
-                            for(int j=0; j<driver.length(); j++){
-                                JSONObject driverObj = driver.getJSONObject(j);
-                                String driverName = driverObj.getString("givenName");
-                                String driverLastName = driverObj.getString("familyName");
-                                List<String> list = new ArrayList<>();
-                                list.add(driverName);
-                                Log.d("driverNames", " : "+ driverName);
-
-                            }
-                        }
-                    }
+                    JSONObject driverTable = MRdata.getJSONObject("DriverTable");
+                    JSONArray driver = driverTable.getJSONArray("Drivers");
+                    JSONObject driverObj = driver.getJSONObject(0);
+                    String driverName = driverObj.getString("givenName");
+                    String driverLastName = driverObj.getString("familyName");
+                    Log.d("driverNames", " : "+ driverName + " " + driverLastName);
 
                 }catch (Exception ex){
                     ex.printStackTrace();
