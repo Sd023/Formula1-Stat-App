@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Cache;
@@ -34,12 +35,13 @@ import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements JSONCall{
 
     Button fetchData;
     RequestQueue requestQueue;
     ArrayList<HashMap<String,String>> driverDetailList;
-
+    TextView driverText;
+    String driverFullName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity{
 
 
         fetchData = (Button) findViewById(R.id.fetchDriver);
+        driverText = (TextView) findViewById(R.id.driverName);
         driverDetailList = new ArrayList<>();
         String url  = "https://ergast.com/api/f1/2022/drivers/hamilton.json";
         requestQueue = Volley.newRequestQueue(this);
@@ -76,9 +79,11 @@ public class MainActivity extends AppCompatActivity{
                     JSONObject driverTable = MRdata.getJSONObject("DriverTable");
                     JSONArray driver = driverTable.getJSONArray("Drivers");
                     JSONObject driverObj = driver.getJSONObject(0);
-                    String driverName = driverObj.getString("givenName");
+                    String driverFirstName = driverObj.getString("givenName");
                     String driverLastName = driverObj.getString("familyName");
-                    Log.d("driverNames", " : "+ driverName + " " + driverLastName);
+                    driverFullName = driverFirstName + " " + driverLastName;
+                    onSuccess(driverFullName);
+                    Log.d("TAG", "driverFullName" + driverFullName);
 
                 }catch (Exception ex){
                     ex.printStackTrace();
@@ -93,6 +98,16 @@ public class MainActivity extends AppCompatActivity{
         });
 
         requestQueue.add(driverDetailsRequest);
+    }
+
+    @Override
+    public void onSuccess(String driverName) {
+        driverText.setText(driverName);
+    }
+
+    @Override
+    public void onFail(String msg) {
+        Toast.makeText(this, "Message Failed", Toast.LENGTH_SHORT).show();
 
     }
 }
