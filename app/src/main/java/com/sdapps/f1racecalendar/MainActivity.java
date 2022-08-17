@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements JSONCall{
         fetchData = (Button) findViewById(R.id.fetchDriver);
         driverText = (TextView) findViewById(R.id.driverName);
         driverDetailList = new ArrayList<>();
-        String url  = "https://ergast.com/api/f1/2022/drivers/hamilton.json";
+        String url  = "https://ergast.com/api/f1/2022/drivers/leclerc.json";
         requestQueue = Volley.newRequestQueue(this);
 
         fetchData.setOnClickListener(new View.OnClickListener() {

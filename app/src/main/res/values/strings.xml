@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">F1 Race Calendar</string>
+    <string name="next_race">Next Race</string>
+    <string name="days">days</string>
+    <string name="hours">hours</string>
 </resources>
