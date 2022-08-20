@@ -1,6 +1,12 @@
 package com.sdapps.f1racecalendar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +28,11 @@ import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
+import com.sdapps.f1racecalendar.homeFragment.Moto2HomeFragment;
+import com.sdapps.f1racecalendar.homeFragment.Moto3HomeFragment;
+import com.sdapps.f1racecalendar.homeFragment.MotogpHomeFragment;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,7 +48,9 @@ import okhttp3.RequestBody;
 
 public class MainActivity extends AppCompatActivity implements JSONCall{
 
-    Button fetchData;
+    TabLayout tabLayout;
+    ViewPager viewPager;
+    PageAdapter pageAdapter;
     RequestQueue requestQueue;
     ArrayList<HashMap<String,String>> driverDetailList;
     TextView driverText, nextRaceTitle, day_counter,hour_counter;
@@ -49,34 +62,64 @@ public class MainActivity extends AppCompatActivity implements JSONCall{
         setContentView(R.layout.activity_main);
 
 
-//        fetchData = (Button) findViewById(R.id.fetchDriver);
-//        driverText = (TextView) findViewById(R.id.driverName);
-        nextRaceTitle = (TextView) findViewById(R.id.nextRaceTitle);
-        day_counter = (TextView) findViewById(R.id.day_counter);
-        hour_counter = (TextView) findViewById(R.id.hour_counter);
+        nextRaceTitle =findViewById(R.id.nextRaceTitle);
+        day_counter =  findViewById(R.id.day_counter);
+        hour_counter = findViewById(R.id.hour_counter);
+        tabLayout = findViewById(R.id.homeTabLayout);
+        viewPager = findViewById(R.id.homeViewPager);
 
+        initView();
 
+        tabLayout.addTab(tabLayout.newTab().setText("MotoGP"));
+        tabLayout.addTab(tabLayout.newTab().setText("Moto2"));
+        tabLayout.addTab(tabLayout.newTab().setText("Moto3"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        pageAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(pageAdapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+    }
+
+    private void initView(){
         nextRaceTitle.setText("Austrian Grand Prix");
         day_counter.setText(" 01");
         hour_counter.setText("24");
         driverDetailList = new ArrayList<>();
         String url  = "https://ergast.com/api/f1/2022/drivers/leclerc.json";
         requestQueue = Volley.newRequestQueue(this);
-
-       /* fetchData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Handler handler = new Handler();
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        getJsonResponse(url);
-                    }
-                });
-
-            }
-        });*/
     }
+
+
+
+    class PageAdapter extends FragmentPagerAdapter{
+
+        private int tabsCount;
+
+        public PageAdapter(FragmentManager fm, int tabsCount) {
+            super(fm);
+            this.tabsCount = tabsCount;
+        }
+
+
+        @NonNull
+        @Override
+        public Fragment getItem(int position) {
+            switch (position){
+                case 0 : return new MotogpHomeFragment();
+                case 1 : return new Moto2HomeFragment();
+                case 2 : return new Moto3HomeFragment();
+                default:
+                   return null;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return tabsCount;
+        }
+    }
+
+
 
     private void getJsonResponse(String url){
         JsonObjectRequest driverDetailsRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {

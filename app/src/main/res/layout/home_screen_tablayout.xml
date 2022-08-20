@@ -10,24 +10,6 @@
         android:backgroundTint="@color/card_view_home"
         android:id="@+id/homeTabLayout"
         >
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/homeMotoGP"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/motogp"/>
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/homeMoto2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/moto2"/>
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/homeMoto3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/moto3"/>
-
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager
