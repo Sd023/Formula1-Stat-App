@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
@@ -78,6 +80,15 @@ public class MainActivity extends AppCompatActivity implements JSONCall{
         viewPager.setAdapter(pageAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+        callRecyclerView();
+
+    }
+
+    private void callRecyclerView(){
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,true));
+        HomeCardAdapter cardAdapter = new HomeCardAdapter();
+        recyclerView.setAdapter(cardAdapter);
     }
 
     private void initView(){
