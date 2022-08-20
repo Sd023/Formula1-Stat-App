@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements JSONCall{
     Button fetchData;
     RequestQueue requestQueue;
     ArrayList<HashMap<String,String>> driverDetailList;
-    TextView driverText;
+    TextView driverText, nextRaceTitle, day_counter,hour_counter;
     String driverFullName;
 
     @Override
@@ -49,13 +49,21 @@ public class MainActivity extends AppCompatActivity implements JSONCall{
         setContentView(R.layout.activity_main);
 
 
-        fetchData = (Button) findViewById(R.id.fetchDriver);
-        driverText = (TextView) findViewById(R.id.driverName);
+//        fetchData = (Button) findViewById(R.id.fetchDriver);
+//        driverText = (TextView) findViewById(R.id.driverName);
+        nextRaceTitle = (TextView) findViewById(R.id.nextRaceTitle);
+        day_counter = (TextView) findViewById(R.id.day_counter);
+        hour_counter = (TextView) findViewById(R.id.hour_counter);
+
+
+        nextRaceTitle.setText("Austrian Grand Prix");
+        day_counter.setText(" 01");
+        hour_counter.setText("24");
         driverDetailList = new ArrayList<>();
         String url  = "https://ergast.com/api/f1/2022/drivers/leclerc.json";
         requestQueue = Volley.newRequestQueue(this);
 
-        fetchData.setOnClickListener(new View.OnClickListener() {
+       /* fetchData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Handler handler = new Handler();
@@ -67,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements JSONCall{
                 });
 
             }
-        });
+        });*/
     }
 
     private void getJsonResponse(String url){

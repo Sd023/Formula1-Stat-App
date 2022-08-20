@@ -3,4 +3,7 @@
     <string name="next_race">Next Race</string>
     <string name="days">days</string>
     <string name="hours">hours</string>
+    <string name="motogp">MotoGP</string>
+    <string name="moto2">Moto2</string>
+    <string name="moto3">Moto3</string>
 </resources>

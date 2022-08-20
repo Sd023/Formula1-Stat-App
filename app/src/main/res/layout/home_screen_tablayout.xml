@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/card_view_home"
+        android:id="@+id/homeTabLayout"
+        >
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/homeMotoGP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/motogp"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/homeMoto2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/moto2"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/homeMoto3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/moto3"/>
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/homeViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

@@ -5,6 +5,9 @@
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.24164745168633028" />
         <entry key="app/src/main/res/layout/driver_card_standings.xml" value="0.23369565217391305" />
+        <entry key="app/src/main/res/layout/home_screen_tablayout.xml" value="0.264945652173913" />
+        <entry key="app/src/main/res/layout/home_tablayout.xml" value="0.264945652173913" />
+        <entry key="app/src/main/res/layout/schedule_table_view.xml" value="0.264945652173913" />
       </map>
     </option>
   </component>
