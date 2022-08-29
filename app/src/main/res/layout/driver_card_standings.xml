@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
     android:elevation="20dp"
-    app:cardCornerRadius="20dp"
-    android:backgroundTint="@color/yamaha_blue"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    app:cardCornerRadius="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -24,12 +24,12 @@
             android:id="@+id/driverName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
             android:layout_marginTop="5dp"
+            android:maxLines="2"
             android:padding="6dp"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="12sp"
-            android:maxLines="2"
             app:layout_constraintStart_toEndOf="@+id/driverImage"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,8 +37,8 @@
             android:id="@+id/driverTeamNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
             android:padding="6dp"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="6sp"
             app:layout_constraintStart_toEndOf="@+id/driverImage"

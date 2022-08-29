@@ -1,5 +1,6 @@
 package com.sdapps.f1racecalendar;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,16 +25,16 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements JSONCall{
+public class MainActivity extends AppCompatActivity implements JSONCall {
 
     RequestQueue requestQueue;
-    TextView  nextRaceTitle, day_counter,hour_counter;
-    Button fetchData;
+    TextView nextRaceTitle, day_counter, hour_counter, constantDriverStandings, constantConstructorStandings;
+    Button driverView, constructorView;
     Context context;
-    RecyclerView recyclerView;
+    RecyclerView recyclerView, constructorRV;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,33 +42,39 @@ public class MainActivity extends AppCompatActivity implements JSONCall{
         setContentView(R.layout.activity_main);
 
 
-        nextRaceTitle =findViewById(R.id.nextRaceTitle);
-        day_counter =  findViewById(R.id.day_counter);
+        nextRaceTitle = findViewById(R.id.nextRaceTitle);
+        day_counter = findViewById(R.id.day_counter);
         hour_counter = findViewById(R.id.hour_counter);
-        fetchData = findViewById(R.id.fetchData);
         recyclerView = findViewById(R.id.recyclerView);
+        constructorRV = findViewById(R.id.constructorRecyclerView);
+
+        constantDriverStandings = findViewById(R.id.constantDriverStandings);
+        constantConstructorStandings = findViewById(R.id.constantConstructorStandings);
+        driverView = findViewById(R.id.driverView);
+        constructorView = findViewById(R.id.constructorView);
+        progressDialog = new ProgressDialog(this);
 
         initView();
 
     }
-    private void initView(){
+
+    private void initView() {
         nextRaceTitle.setText("Austrian Grand Prix");
         day_counter.setText(" 01");
         hour_counter.setText("24");
-        String url  = "https://ergast.com/api/f1/2022/drivers/bottas.json";
+        String url = "https://ergast.com/api/f1/2022/drivers.json";
         Handler d = new Handler();
-
-        fetchData.setOnClickListener(new View.OnClickListener() {
+        d.post(new Runnable() {
             @Override
-            public void onClick(View view) {
-                d.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        getJsonResponse(url);
-                    }
-                });
+            public void run() {
+                progressDialog.setTitle("Loading..");
+                progressDialog.setMessage("Fetching driver information..");
+                progressDialog.show();
+                getDriverResponse(url);
             }
         });
+
+
 
         requestQueue = Volley.newRequestQueue(this);
 
@@ -75,55 +82,48 @@ public class MainActivity extends AppCompatActivity implements JSONCall{
     }
 
 
-    private void getJsonResponse(String url){
-
-        DriverdataBO driverdataBO = new DriverdataBO();
+    private void getDriverResponse(String url) {
         List<DriverdataBO> driverList = new ArrayList<DriverdataBO>();
-        JsonObjectRequest driverDetailsRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try{
-                    JSONObject MRdata = response.getJSONObject("MRData");
-                    JSONObject driverTable = MRdata.getJSONObject("DriverTable");
-                    JSONArray driver = driverTable.getJSONArray("Drivers");
-                    JSONObject driverObj = driver.getJSONObject(0);
+        JsonObjectRequest driverDetailsRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+            try {
+                JSONObject MRdata = response.getJSONObject("MRData");
+                JSONObject driverTable = MRdata.getJSONObject("DriverTable");
+                JSONArray driver = driverTable.getJSONArray("Drivers");
+                for (int nextDriver = 0; nextDriver < driver.length(); nextDriver++) {
+                    DriverdataBO driverdataBO = new DriverdataBO();
+                    JSONObject driverObj = driver.getJSONObject(nextDriver);
                     String driverFirstName = driverObj.getString("givenName");
                     String driverLastName = driverObj.getString("familyName");
                     String driverNumber = driverObj.getString("permanentNumber");
                     String driverCode = driverObj.getString("code");
                     String driverNationality = driverObj.getString("nationality");
                     String driverFullName = driverFirstName + " " + driverLastName;
-
                     driverdataBO.setDriverName(driverFullName);
                     driverdataBO.setDriverNumber(driverNumber);
-                    driverdataBO.setDriverNationality(driverNationality);
                     driverdataBO.setDriverCode(driverCode);
-
+                    driverdataBO.setDriverNationality(driverNationality);
                     driverList.add(driverdataBO);
-                    Log.d("SUCCESS", " : " + driverFullName);
-                    onSuccess(driverList);
-
-                }catch (Exception ex){
-                    ex.printStackTrace();
                 }
+                //Log.d("SUCCESS", " : " + driverFullName);
+                onSuccess(driverList);
 
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
+
+        }, error -> error.printStackTrace());
 
         requestQueue.add(driverDetailsRequest);
     }
 
     @Override
     public void onSuccess(List<DriverdataBO> driverDataList) {
-        Log.d("SUCCESS","" + driverDataList.size());
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,true));
+        Log.d("SUCCESS", "" + driverDataList.size());
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         HomeCardAdapter cardAdapter = new HomeCardAdapter(driverDataList, context);
         recyclerView.setAdapter(cardAdapter);
+        progressDialog.dismiss();
+
     }
 
     @Override
