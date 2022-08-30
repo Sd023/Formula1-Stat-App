@@ -36,8 +36,9 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.driverName.setText(driverDataList.get(position).getDriverName());
-        holder.driverCode.setText(driverDataList.get(position).getDriverCode());
         holder.driverNumber.setText(driverDataList.get(position).getDriverNumber());
+        holder.points.setText(driverDataList.get(position).getTotalPoints());
+        holder.standing.setText(driverDataList.get(position).getPosition());
 
         if (driverDataList.get(position).getDriverCode().equals("ALB"))
             holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.days_red));
@@ -62,7 +63,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
         else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("OCO"))
             holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.teal_700));
         else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("PER"))
-            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.card_view_home));
+            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.teal_200));
         else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("RIC"))
             holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.days_red));
         else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("SAI"))
@@ -89,15 +90,16 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView driverName, driverCode, driverNumber;
+        TextView driverName, driverNumber, points, standing;
         CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.driverName = itemView.findViewById(R.id.driverName);
-            this.driverCode = itemView.findViewById(R.id.driverTeamNo);
-            this.driverNumber = itemView.findViewById(R.id.standing);
+            this.driverNumber = itemView.findViewById(R.id.driverTeamNo);
             this.cardView = itemView.findViewById(R.id.cardView);
+            this.points = itemView.findViewById(R.id.points);
+            this.standing = itemView.findViewById(R.id.standing);
 
         }
     }
