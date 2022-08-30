@@ -14,11 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -28,13 +25,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.http.Path;
-
-public class MainActivity extends AppCompatActivity implements JSONCall , View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements JSONCall {
 
     RequestQueue requestQueue;
     TextView nextRaceTitle, day_counter, hour_counter, constantDriverStandings, constantConstructorStandings;
-    Button driverView, constructorView;
+    Button driverView, constructorView, bt;
     Context context;
     RecyclerView recyclerView, constructorRV;
     ProgressDialog progressDialog;
@@ -65,25 +60,25 @@ public class MainActivity extends AppCompatActivity implements JSONCall , View.O
         nextRaceTitle.setText("Austrian Grand Prix");
         day_counter.setText(" 01");
         hour_counter.setText("24");
-        constantDriverStandings.setVisibility(View.VISIBLE);
-        constantConstructorStandings.setVisibility(View.VISIBLE);
-        driverView.setVisibility(View.VISIBLE);
-        constructorView.setVisibility(View.VISIBLE);
-
-        driverView.setOnClickListener(this);
-        constructorView.setOnClickListener(this);
-        String url = "https://ergast.com/api/f1/2022/drivers.json";
+        String url = "https://ergast.com/api/f1/current/driverStandings.json";
         Handler d = new Handler();
-        d.post(new Runnable() {
+        bt = findViewById(R.id.fetchUser);
+        bt.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                progressDialog.setTitle("Loading..");
-                progressDialog.setMessage("Fetching driver information..");
-                progressDialog.show();
-                getDriverResponse(url);
+            public void onClick(View view) {
+                d.post(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        progressDialog.setTitle("Loading..");
+                        progressDialog.setMessage("Fetching driver information..");
+                        progressDialog.show();
+                        getDriverResponse(url);
+                    }
+                });
+
             }
         });
-
 
 
         requestQueue = Volley.newRequestQueue(this);
@@ -97,23 +92,42 @@ public class MainActivity extends AppCompatActivity implements JSONCall , View.O
         JsonObjectRequest driverDetailsRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
             try {
                 JSONObject MRdata = response.getJSONObject("MRData");
-                JSONObject driverTable = MRdata.getJSONObject("DriverTable");
-                JSONArray driver = driverTable.getJSONArray("Drivers");
-                for (int nextDriver = 0; nextDriver < driver.length(); nextDriver++) {
+                JSONObject driverTable = MRdata.getJSONObject("StandingsTable");
+                JSONArray driver = driverTable.getJSONArray("StandingsLists");
+                JSONObject standingsObj = driver.getJSONObject(0);
+                JSONArray jsonArray = standingsObj.getJSONArray("DriverStandings");
+
+                for (int i = 0; i < jsonArray.length(); i++) {
                     DriverdataBO driverdataBO = new DriverdataBO();
-                    JSONObject driverObj = driver.getJSONObject(nextDriver);
-                    String driverFirstName = driverObj.getString("givenName");
-                    String driverLastName = driverObj.getString("familyName");
-                    String driverNumber = driverObj.getString("permanentNumber");
-                    String driverCode = driverObj.getString("code");
-                    String driverNationality = driverObj.getString("nationality");
-                    String driverFullName = driverFirstName + " " + driverLastName;
+                    JSONObject details = jsonArray.getJSONObject(i);
+                    String tablePosition = details.getString("position");
+                    String points = details.getString("points");
+                    String totalWins = details.getString("wins");
+                    JSONObject driverDetail = details.getJSONObject("Driver");
+                    String driverID = driverDetail.getString("driverId");
+                    String driverGivenName = driverDetail.getString("givenName");
+                    String driverFamilyName = driverDetail.getString("familyName");
+                    String dateOfBirth = driverDetail.getString("dateOfBirth");
+                    String nationality = driverDetail.getString("nationality");
+                    String permanentNumber = driverDetail.getString("permanentNumber");
+                    String code = driverDetail.getString("code");
+
+                    String driverFullName = driverGivenName + " " + driverFamilyName;
+                    driverdataBO.setPosition(tablePosition);
+                    driverdataBO.setTotalPoints(points);
+                    driverdataBO.setWins(totalWins);
+                    driverdataBO.setDriverId(driverID);
                     driverdataBO.setDriverName(driverFullName);
-                    driverdataBO.setDriverNumber(driverNumber);
-                    driverdataBO.setDriverCode(driverCode);
-                    driverdataBO.setDriverNationality(driverNationality);
+                    driverdataBO.setDOB(dateOfBirth);
+                    driverdataBO.setDriverNationality(nationality);
+                    driverdataBO.setDriverNumber(permanentNumber);
+                    driverdataBO.setDriverCode(code);
+
                     driverList.add(driverdataBO);
+                    Log.d("POINTS", " : " + " " + driverID + " " + points);
+
                 }
+
                 //Log.d("SUCCESS", " : " + driverFullName);
                 onSuccess(driverList);
 
@@ -123,10 +137,6 @@ public class MainActivity extends AppCompatActivity implements JSONCall , View.O
 
         }, error -> onFail(error.toString()));
 
-        driverDetailsRequest.setRetryPolicy(
-                new DefaultRetryPolicy(5000,
-                3,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(driverDetailsRequest);
     }
 
@@ -142,21 +152,8 @@ public class MainActivity extends AppCompatActivity implements JSONCall , View.O
 
     @Override
     public void onFail(String msg) {
-        Log.d("ERROR_CODE", "JSON_FETCH_FAILED :  " + " --- " + msg);
-        Toast.makeText(this, "Fetching driver information failed!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Message Failed", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
-
-
-    }
-
-    @Override
-    public void onClick(View view) {
-        if(view.getId() == R.id.driverView){
-            Toast.makeText(MainActivity.this, "Button Driver", Toast.LENGTH_SHORT).show();
-        }
-        else if(view.getId() == R.id.constructorView){
-            Toast.makeText(MainActivity.this, "Constructor!", Toast.LENGTH_SHORT).show();
-        }
 
     }
 }
