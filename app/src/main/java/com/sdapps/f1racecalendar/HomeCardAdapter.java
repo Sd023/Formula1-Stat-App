@@ -21,7 +21,6 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
         this.driverDataList = driverDataList;
         this.context = context;
     }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -33,55 +32,61 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.driverName.setText(driverDataList.get(position).getDriverName());
-        holder.driverNumber.setText(driverDataList.get(position).getDriverNumber());
-        holder.points.setText(driverDataList.get(position).getTotalPoints());
+        StringBuilder stringBuilder = new StringBuilder();
+        holder.driverName.setText(stringBuilder.append(driverDataList.get(position).getDriverName()).append("\n").append(driverDataList.get(position).getDriverNumber()).toString());
+        holder.driverNumber.setText(new StringBuilder().append(driverDataList.get(position).getConstructorName()));
+        holder.points.setText(new StringBuilder().append("Points: ").append(driverDataList.get(position).getTotalPoints()));
         holder.standing.setText(driverDataList.get(position).getPosition());
 
-        if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("ALB"))
-            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.williams));
-        else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("LAT"))
-            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.williams));
-        else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("ALO"))
-            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.alpine));
-        else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("OCO"))
-            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.alpine));
-        else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("BOT"))
-            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.alfa_romeo_racing));
-        else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("ZHO"))
-            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.alfa_romeo_racing));
-        else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("GAS"))
-            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.alphatauri));
-        else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("TSU"))
-            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.alphatauri));
-        else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("HAM"))
-            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.mercedes));
-        else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("RUS"))
-            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.mercedes));
-        else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("HUL"))
-            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.aston_martin));
-        else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("STR"))
-            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.aston_martin));
-        else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("VET"))
-            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.aston_martin));
-        else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("LEC"))
-            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.ferrari));
-        else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("SAI"))
-            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.ferrari));
-        else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("MAG"))
-            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.haas));
-        else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("MSC"))
-            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.haas));
-        else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("NOR"))
-            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.mclaren));
-        else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("RIC"))
-            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.mclaren));
-        else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("PER"))
-            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.redbull_racing));
-        else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("VER"))
-            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.redbull_racing));
-        else
-            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.generic));
+        try{
+            if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("ALB"))
+                holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.williams));
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("LAT"))
+                holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.williams));
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("ALO"))
+                holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.alpine));
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("OCO"))
+                holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.alpine));
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("BOT"))
+                holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.alfa_romeo_racing));
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("ZHO"))
+                holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.alfa_romeo_racing));
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("GAS"))
+                holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.alphatauri));
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("TSU"))
+                holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.alphatauri));
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("HAM"))
+                holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.mercedes));
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("RUS"))
+                holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.mercedes));
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("HUL"))
+                holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.aston_martin));
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("STR"))
+                holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.aston_martin));
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("VET"))
+                holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.aston_martin));
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("LEC"))
+                holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.ferrari));
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("SAI"))
+                holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.ferrari));
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("MAG"))
+                holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.haas));
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("MSC"))
+                holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.haas));
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("NOR"))
+                holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.mclaren));
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("RIC"))
+                holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.mclaren));
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("PER"))
+                holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.redbull_racing));
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("VER"))
+                holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.redbull_racing));
+            else
+                holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.generic));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override

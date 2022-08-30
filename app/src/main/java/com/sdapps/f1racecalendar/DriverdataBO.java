@@ -14,8 +14,25 @@ public class DriverdataBO {
     private String position;
     private String totalPoints;
     private String wins;
+    private String constructorName;
 
     public DriverdataBO() {
+    }
+
+    public DriverdataBO(String driverName, String driverNumber, String driverConstructor, String driverPoints, int driverRanking, String driverCode, String driverNationality, String DOB, String driverId, String position, String totalPoints, String wins, String constructorName) {
+        this.driverName = driverName;
+        this.driverNumber = driverNumber;
+        this.driverConstructor = driverConstructor;
+        this.driverPoints = driverPoints;
+        this.driverRanking = driverRanking;
+        this.driverCode = driverCode;
+        this.driverNationality = driverNationality;
+        this.DOB = DOB;
+        this.driverId = driverId;
+        this.position = position;
+        this.totalPoints = totalPoints;
+        this.wins = wins;
+        this.constructorName = constructorName;
     }
 
     public DriverdataBO(String driverName, String driverNumber, String driverConstructor, String driverPoints, int driverRanking, String driverCode, String driverNationality, String DOB, String driverId, String position, String totalPoints, String wins) {
@@ -128,4 +145,14 @@ public class DriverdataBO {
     public void setWins(String wins) {
         this.wins = wins;
     }
+
+
+    public String getConstructorName() {
+        return constructorName;
+    }
+
+    public void setConstructorName(String constructorName) {
+        this.constructorName = constructorName;
+    }
+
 }

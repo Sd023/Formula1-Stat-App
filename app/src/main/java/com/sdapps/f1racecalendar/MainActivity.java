@@ -5,17 +5,22 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -78,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
                 progressDialog.setMessage("Fetching driver information..");
                 progressDialog.show();
                 getDriverResponse(url);
+                getConstructorDetails();
             }
         });
 
@@ -112,8 +118,8 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
                     String nationality = driverDetail.getString("nationality");
                     String permanentNumber = driverDetail.getString("permanentNumber");
                     String code = driverDetail.getString("code");
-
                     String driverFullName = driverGivenName + " " + driverFamilyName;
+
                     driverdataBO.setPosition(tablePosition);
                     driverdataBO.setTotalPoints(points);
                     driverdataBO.setWins(totalWins);
@@ -128,7 +134,6 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
                     Log.d("POINTS", " : " + " " + driverID + " " + points);
 
                 }
-
                 //Log.d("SUCCESS", " : " + driverFullName);
                 onSuccess(driverList);
 
@@ -137,25 +142,7 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
             }
 
         }, error -> onFail(error.toString()));
-
         requestQueue.add(driverDetailsRequest);
-    }
-
-    @Override
-    public void onSuccess(List<DriverdataBO> driverDataList) {
-        Log.d("SUCCESS", "" + driverDataList.size());
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        HomeCardAdapter cardAdapter = new HomeCardAdapter(driverDataList, context);
-        recyclerView.setAdapter(cardAdapter);
-        progressDialog.dismiss();
-
-    }
-
-    @Override
-    public void onFail(String msg) {
-        Toast.makeText(this, "Message Failed", Toast.LENGTH_SHORT).show();
-        progressDialog.dismiss();
-
     }
 
     @Override
@@ -165,6 +152,151 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
         }
         if (view.getId() == R.id.constructorView) {
             Toast.makeText(MainActivity.this, "ConstructorView!", Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    private void getConstructorDetails() {
+        final String url = "https://ergast.com/api/f1/2022/constructorStandings.json";
+        List<ConstructorBO> constructorBOList = new ArrayList<ConstructorBO>();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONObject MRdata = response.getJSONObject("MRData");
+                    JSONObject driverTable = MRdata.getJSONObject("StandingsTable");
+                    JSONArray driver = driverTable.getJSONArray("StandingsLists");
+                    JSONObject standingsObj = driver.getJSONObject(0);
+                    JSONArray jsonArray = standingsObj.getJSONArray("ConstructorStandings");
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        ConstructorBO constructorBO = new ConstructorBO();
+                        JSONObject consDetail = jsonArray.getJSONObject(i);
+
+                        String position = consDetail.getString("position");
+                        String wins = consDetail.getString("wins");
+                        String points = consDetail.getString("points");
+                        JSONObject cons = consDetail.getJSONObject("Constructor");
+                        String constructorId = cons.getString("constructorId");
+                        String consName = cons.getString("name");
+                        String consNation = cons.getString("nationality");
+
+
+                        constructorBO.setConstructorName(consName);
+                        constructorBO.setPoints(points);
+                        constructorBO.setPosition(position);
+                        constructorBO.setWins(wins);
+                        constructorBO.setNationality(consNation);
+                        constructorBO.setConId(constructorId);
+
+                        constructorBOList.add(constructorBO);
+
+                    }
+                    onConSuccess(constructorBOList);
+                } catch (Exception e) {
+                    onFail(e.toString());
+                    e.printStackTrace();
+                }
+
+            }
+        }, error -> onFail(error.toString()));
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    @Override
+    public void onSuccess(List<DriverdataBO> driverDataList) {
+        Log.d("SUCCESS", "" + driverDataList.size());
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        HomeCardAdapter cardAdapter = new HomeCardAdapter(driverDataList, context);
+        recyclerView.setAdapter(cardAdapter);
+    }
+
+    @Override
+    public void onConSuccess(List<ConstructorBO> constructorBOList) {
+        Log.d("CONSUCCESS", "" + constructorBOList.size());
+        constructorRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        ConstructorAdapter cardAdapter = new ConstructorAdapter(constructorBOList, context);
+        constructorRV.setAdapter(cardAdapter);
+        progressDialog.dismiss();
+    }
+
+    @Override
+    public void onFail(String msg) {
+        Toast.makeText(this, "Message Failed", Toast.LENGTH_SHORT).show();
+        progressDialog.dismiss();
+
+    }
+
+    public static class ConstructorAdapter extends RecyclerView.Adapter<ConstructorAdapter.ViewHolder> {
+
+        private List<ConstructorBO> consList;
+        Context context;
+
+        public ConstructorAdapter(List<ConstructorBO> consList, Context context) {
+            this.consList = consList;
+            this.context = context;
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+            View view = layoutInflater.inflate(R.layout.driver_card_standings, parent, false);
+            context = parent.getContext();
+            return new ConstructorAdapter.ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            StringBuilder stringBuilder = new StringBuilder();
+            holder.constructorName.setText(stringBuilder.append(consList.get(position).getConstructorName()));
+            holder.points.setText(new StringBuilder().append("Points: ").append(consList.get(position).getPoints()));
+            holder.standing.setText(consList.get(position).getPosition());
+
+            try {
+                if (consList.get(position).getConId().equalsIgnoreCase(F1Constants.ALFA_ROMEO))
+                    holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.alfa_romeo_racing));
+                else if (consList.get(position).getConId().equalsIgnoreCase(F1Constants.ALPHATAURI))
+                    holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.alphatauri));
+                else if (consList.get(position).getConId().equalsIgnoreCase(F1Constants.ALPINE))
+                    holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.alpine));
+                else if (consList.get(position).getConId().equalsIgnoreCase(F1Constants.ASTON_MARTIN))
+                    holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.aston_martin));
+                else if (consList.get(position).getConId().equalsIgnoreCase(F1Constants.FERRARI))
+                    holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.ferrari));
+                else if (consList.get(position).getConId().equalsIgnoreCase(F1Constants.HAAS))
+                    holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.haas));
+                else if (consList.get(position).getConId().equalsIgnoreCase(F1Constants.MCLAREN))
+                    holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.mclaren));
+                else if (consList.get(position).getConId().equalsIgnoreCase(F1Constants.MERCEDES))
+                    holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.mercedes));
+                else if (consList.get(position).getConId().equalsIgnoreCase(F1Constants.RED_BULL))
+                    holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.redbull_racing));
+                else if (consList.get(position).getConId().equalsIgnoreCase(F1Constants.WILLIAMS))
+                    holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.williams));
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return 5;
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            TextView constructorName, points, standing;
+            CardView cardView;
+
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+                this.constructorName = itemView.findViewById(R.id.driverName);
+                this.cardView = itemView.findViewById(R.id.cardView);
+                this.points = itemView.findViewById(R.id.points);
+                this.standing = itemView.findViewById(R.id.standing);
+
+            }
 
         }
     }
