@@ -70,7 +70,7 @@
                 android:layout_marginStart="20dp"
                 android:padding="4dp"
                 android:text=""
-                android:textColor="@color/days_red"
+                android:textColor="@color/ferrari"
                 android:textSize="23sp"
                 android:textStyle="bold" />
 
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text=""
-                android:textColor="@color/days_red"
+                android:textColor="@color/ferrari"
                 android:textSize="20sp" />
 
             <TextView
@@ -113,14 +113,7 @@
             app:cardCornerRadius="11dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" >
-
-            <Button
-                android:id="@+id/fetchUser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fetch"/>
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
         <TextView
             android:id="@+id/constantDriverStandings"

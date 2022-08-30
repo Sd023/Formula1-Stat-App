@@ -25,11 +25,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements JSONCall {
+public class MainActivity extends AppCompatActivity implements JSONCall, View.OnClickListener {
 
     RequestQueue requestQueue;
     TextView nextRaceTitle, day_counter, hour_counter, constantDriverStandings, constantConstructorStandings;
-    Button driverView, constructorView, bt;
+    Button driverView, constructorView;
     Context context;
     RecyclerView recyclerView, constructorRV;
     ProgressDialog progressDialog;
@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements JSONCall {
         constantConstructorStandings = findViewById(R.id.constantConstructorStandings);
         driverView = findViewById(R.id.driverView);
         constructorView = findViewById(R.id.constructorView);
+        driverView.setOnClickListener(this);
+        constructorView.setOnClickListener(this);
         progressDialog = new ProgressDialog(this);
 
         initView();
@@ -60,23 +62,22 @@ public class MainActivity extends AppCompatActivity implements JSONCall {
         nextRaceTitle.setText("Austrian Grand Prix");
         day_counter.setText(" 01");
         hour_counter.setText("24");
+        constantDriverStandings.setVisibility(View.VISIBLE);
+        constantConstructorStandings.setVisibility(View.VISIBLE);
+
+        driverView.setVisibility(View.VISIBLE);
+        constructorView.setVisibility(View.VISIBLE);
         String url = "https://ergast.com/api/f1/current/driverStandings.json";
         Handler d = new Handler();
-        bt = findViewById(R.id.fetchUser);
-        bt.setOnClickListener(new View.OnClickListener() {
+
+        d.post(new Runnable() {
+
             @Override
-            public void onClick(View view) {
-                d.post(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        progressDialog.setTitle("Loading..");
-                        progressDialog.setMessage("Fetching driver information..");
-                        progressDialog.show();
-                        getDriverResponse(url);
-                    }
-                });
-
+            public void run() {
+                progressDialog.setTitle("Loading..");
+                progressDialog.setMessage("Fetching driver information..");
+                progressDialog.show();
+                getDriverResponse(url);
             }
         });
 
@@ -155,5 +156,16 @@ public class MainActivity extends AppCompatActivity implements JSONCall {
         Toast.makeText(this, "Message Failed", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == R.id.driverView){
+            Toast.makeText(MainActivity.this, "DriverView!", Toast.LENGTH_SHORT).show();
+        }
+        if(view.getId() == R.id.constructorView){
+            Toast.makeText(MainActivity.this, "ConstructorView!", Toast.LENGTH_SHORT).show();
+
+        }
     }
 }
