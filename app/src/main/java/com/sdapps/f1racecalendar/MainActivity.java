@@ -160,10 +160,10 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
 
     @Override
     public void onClick(View view) {
-        if(view.getId() == R.id.driverView){
+        if (view.getId() == R.id.driverView) {
             Toast.makeText(MainActivity.this, "DriverView!", Toast.LENGTH_SHORT).show();
         }
-        if(view.getId() == R.id.constructorView){
+        if (view.getId() == R.id.constructorView) {
             Toast.makeText(MainActivity.this, "ConstructorView!", Toast.LENGTH_SHORT).show();
 
         }
