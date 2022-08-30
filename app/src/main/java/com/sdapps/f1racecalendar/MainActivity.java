@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -27,7 +28,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements JSONCall {
+import retrofit2.http.Path;
+
+public class MainActivity extends AppCompatActivity implements JSONCall , View.OnClickListener {
 
     RequestQueue requestQueue;
     TextView nextRaceTitle, day_counter, hour_counter, constantDriverStandings, constantConstructorStandings;
@@ -62,6 +65,13 @@ public class MainActivity extends AppCompatActivity implements JSONCall {
         nextRaceTitle.setText("Austrian Grand Prix");
         day_counter.setText(" 01");
         hour_counter.setText("24");
+        constantDriverStandings.setVisibility(View.VISIBLE);
+        constantConstructorStandings.setVisibility(View.VISIBLE);
+        driverView.setVisibility(View.VISIBLE);
+        constructorView.setVisibility(View.VISIBLE);
+
+        driverView.setOnClickListener(this);
+        constructorView.setOnClickListener(this);
         String url = "https://ergast.com/api/f1/2022/drivers.json";
         Handler d = new Handler();
         d.post(new Runnable() {
@@ -111,8 +121,12 @@ public class MainActivity extends AppCompatActivity implements JSONCall {
                 ex.printStackTrace();
             }
 
-        }, error -> error.printStackTrace());
+        }, error -> onFail(error.toString()));
 
+        driverDetailsRequest.setRetryPolicy(
+                new DefaultRetryPolicy(5000,
+                3,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(driverDetailsRequest);
     }
 
@@ -128,7 +142,21 @@ public class MainActivity extends AppCompatActivity implements JSONCall {
 
     @Override
     public void onFail(String msg) {
-        Toast.makeText(this, "Message Failed", Toast.LENGTH_SHORT).show();
+        Log.d("ERROR_CODE", "JSON_FETCH_FAILED :  " + " --- " + msg);
+        Toast.makeText(this, "Fetching driver information failed!", Toast.LENGTH_SHORT).show();
+        progressDialog.dismiss();
+
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == R.id.driverView){
+            Toast.makeText(MainActivity.this, "Button Driver", Toast.LENGTH_SHORT).show();
+        }
+        else if(view.getId() == R.id.constructorView){
+            Toast.makeText(MainActivity.this, "Constructor!", Toast.LENGTH_SHORT).show();
+        }
 
     }
 }
