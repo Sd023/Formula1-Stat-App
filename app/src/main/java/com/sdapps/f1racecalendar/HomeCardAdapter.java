@@ -39,47 +39,47 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
         holder.standing.setText(driverDataList.get(position).getPosition());
 
         try{
-            if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("ALB"))
+            if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.ALBON))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.williams));
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("LAT"))
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.LATIFI))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.williams));
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("ALO"))
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.ALONSO))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.alpine));
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("OCO"))
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.OCON))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.alpine));
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("BOT"))
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.BOTTAS))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.alfa_romeo_racing));
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("ZHO"))
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.ZHOU))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.alfa_romeo_racing));
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("GAS"))
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.GASLY))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.alphatauri));
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("TSU"))
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.TSUNODA))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.alphatauri));
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("HAM"))
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.HAMILTON))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.mercedes));
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("RUS"))
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.RUSSELL))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.mercedes));
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("HUL"))
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.HULKENBERG))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.aston_martin));
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("STR"))
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.STROLL))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.aston_martin));
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("VET"))
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.VETTEL))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.aston_martin));
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("LEC"))
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.LECLERC))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.ferrari));
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("SAI"))
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.SAINZ))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.ferrari));
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("MAG"))
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.KMAG))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.haas));
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("MSC"))
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.SCHUMACHER))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.haas));
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("NOR"))
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.NORRIS))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.mclaren));
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("RIC"))
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.RICCIARDO))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.mclaren));
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("PER"))
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.PEREZ))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.redbull_racing));
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase("VER"))
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.VERSTAPPEN))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.redbull_racing));
             else
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.generic));
@@ -91,7 +91,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return 5;
+        return driverDataList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
