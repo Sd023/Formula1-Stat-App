@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.nio.file.Path;
 import java.util.List;
 
 public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHolder> {
@@ -70,9 +71,21 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
             else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.SAINZ))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.ferrari));
             else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.KMAG))
+            {
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.haas));
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.SCHUMACHER))
+                holder.driverName.setTextColor(context.getResources().getColor(R.color.black));
+                holder.driverNumber.setTextColor(context.getResources().getColor(R.color.black));
+                holder.points.setTextColor(context.getResources().getColor(R.color.black));
+                holder.standing.setTextColor(context.getResources().getColor(R.color.black));
+            }
+
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.SCHUMACHER)){
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.haas));
+                holder.driverName.setTextColor(context.getResources().getColor(R.color.black));
+                holder.driverNumber.setTextColor(context.getResources().getColor(R.color.black));
+                holder.points.setTextColor(context.getResources().getColor(R.color.black));
+                holder.standing.setTextColor(context.getResources().getColor(R.color.black));
+            }
             else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.NORRIS))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.mclaren));
             else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.RICCIARDO))
