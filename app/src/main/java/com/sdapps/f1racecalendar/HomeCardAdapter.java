@@ -104,7 +104,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return driverDataList.size();
+        return 5;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

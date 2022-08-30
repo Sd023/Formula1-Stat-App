@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
         hour_counter = findViewById(R.id.hour_counter);
         recyclerView = findViewById(R.id.recyclerView);
         constructorRV = findViewById(R.id.constructorRecyclerView);
-
         constantDriverStandings = findViewById(R.id.constantDriverStandings);
         constantConstructorStandings = findViewById(R.id.constantConstructorStandings);
         driverView = findViewById(R.id.driverView);
@@ -58,6 +57,10 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
         driverView.setOnClickListener(this);
         constructorView.setOnClickListener(this);
         progressDialog = new ProgressDialog(this);
+        constantDriverStandings.setVisibility(View.GONE);
+        constantConstructorStandings.setVisibility(View.GONE);
+        driverView.setVisibility(View.GONE);
+        constructorView.setVisibility(View.GONE);
 
         initView();
 
@@ -67,11 +70,6 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
         nextRaceTitle.setText("Austrian Grand Prix");
         day_counter.setText(" 01");
         hour_counter.setText("24");
-        constantDriverStandings.setVisibility(View.VISIBLE);
-        constantConstructorStandings.setVisibility(View.VISIBLE);
-
-        driverView.setVisibility(View.VISIBLE);
-        constructorView.setVisibility(View.VISIBLE);
         String url = "https://ergast.com/api/f1/current/driverStandings.json";
         Handler d = new Handler();
 
@@ -205,6 +203,9 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
 
     @Override
     public void onSuccess(List<DriverdataBO> driverDataList) {
+        constantDriverStandings.setVisibility(View.VISIBLE);
+        driverView.setVisibility(View.VISIBLE);
+
         Log.d("SUCCESS", "" + driverDataList.size());
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         HomeCardAdapter cardAdapter = new HomeCardAdapter(driverDataList, context);
@@ -213,6 +214,8 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
 
     @Override
     public void onConSuccess(List<ConstructorBO> constructorBOList) {
+        constantConstructorStandings.setVisibility(View.VISIBLE);
+        constructorView.setVisibility(View.VISIBLE);
         Log.d("CONSUCCESS", "" + constructorBOList.size());
         constructorRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         ConstructorAdapter cardAdapter = new ConstructorAdapter(constructorBOList, context);
