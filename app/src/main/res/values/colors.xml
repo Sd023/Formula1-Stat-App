@@ -19,7 +19,8 @@
     <color name="mclaren">#FF8700</color>
     <color name="williams">#005AFF</color>
     <color name="generic">#CFCACA</color>
-
+    <!-- Base Colors. -->
+    <color name="status_bar_color">#3500A4</color>
 
 
 

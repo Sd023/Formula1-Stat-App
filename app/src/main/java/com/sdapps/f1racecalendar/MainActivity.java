@@ -54,19 +54,20 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
         constantConstructorStandings = findViewById(R.id.constantConstructorStandings);
         driverView = findViewById(R.id.driverView);
         constructorView = findViewById(R.id.constructorView);
-        driverView.setOnClickListener(this);
-        constructorView.setOnClickListener(this);
-        progressDialog = new ProgressDialog(this);
-        constantDriverStandings.setVisibility(View.GONE);
-        constantConstructorStandings.setVisibility(View.GONE);
-        driverView.setVisibility(View.GONE);
-        constructorView.setVisibility(View.GONE);
 
         initView();
 
     }
 
     private void initView() {
+        driverView.setOnClickListener(this);
+        constructorView.setOnClickListener(this);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        constantDriverStandings.setVisibility(View.GONE);
+        constantConstructorStandings.setVisibility(View.GONE);
+        driverView.setVisibility(View.GONE);
+        constructorView.setVisibility(View.GONE);
         nextRaceTitle.setText("Austrian Grand Prix");
         day_counter.setText(" 01");
         hour_counter.setText("24");
