@@ -109,7 +109,18 @@
             app:cardCornerRadius="11dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" >
+
+            <include
+                android:id="@+id/home_table_view_layout"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                layout="@layout/home_table_view"
+
+                />
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/constantDriverStandings"

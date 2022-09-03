@@ -4,13 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/circle.xml" value="0.197" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.24164745168633028" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.37412883596367397" />
         <entry key="app/src/main/res/layout/driver_card_standings.xml" value="0.4962292609351433" />
         <entry key="app/src/main/res/layout/fragment_moto2_home.xml" value="0.20153985507246377" />
         <entry key="app/src/main/res/layout/fragment_moto3_home.xml" value="0.20153985507246377" />
         <entry key="app/src/main/res/layout/fragment_motogp_home.xml" value="0.20153985507246377" />
         <entry key="app/src/main/res/layout/home_screen_tablayout.xml" value="0.264945652173913" />
         <entry key="app/src/main/res/layout/home_tablayout.xml" value="0.264945652173913" />
+        <entry key="app/src/main/res/layout/home_table_view.xml" value="0.41823549132416216" />
         <entry key="app/src/main/res/layout/schedule_table_view.xml" value="0.264945652173913" />
       </map>
     </option>
