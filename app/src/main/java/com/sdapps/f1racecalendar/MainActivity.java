@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +24,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.sdapps.f1racecalendar.fragments.ConstructorStandings;
+import com.sdapps.f1racecalendar.fragments.DriverStandings;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -38,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
     Context context;
     RecyclerView recyclerView, constructorRV;
     ProgressDialog progressDialog;
+    private final String DRIVER_FRAGMENT = "DRIVER_FRAGMENT";
+    private final String CONSTRUCTOR_FRAGMENT = "CONSTRUCTOR_FRAGMENT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,11 +153,28 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
     public void onClick(View view) {
         if (view.getId() == R.id.driverView) {
             Toast.makeText(MainActivity.this, "DriverView!", Toast.LENGTH_SHORT).show();
+            //switchToFragment(DRIVER_FRAGMENT);
+
         }
         if (view.getId() == R.id.constructorView) {
             Toast.makeText(MainActivity.this, "ConstructorView!", Toast.LENGTH_SHORT).show();
+            //switchToFragment(CONSTRUCTOR_FRAGMENT);
 
         }
+    }
+
+    private void switchToFragment(String fragmentCode){
+        try{
+            switch (fragmentCode){
+                case DRIVER_FRAGMENT:
+                case CONSTRUCTOR_FRAGMENT:
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
     }
 
     private void getConstructorDetails() {
