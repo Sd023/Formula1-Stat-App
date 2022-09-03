@@ -114,6 +114,13 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
                     String tablePosition = details.getString("position");
                     String points = details.getString("points");
                     String totalWins = details.getString("wins");
+                    JSONArray con = details.getJSONArray("Constructors");
+                    for(int j=0; j<con.length(); j++){
+                        JSONObject d = con.getJSONObject(j);
+                        String conName = d.getString("name");
+                        driverdataBO.setConstructorName(conName);
+                    }
+                    Log.d("TAG", "-----" + driverdataBO.getConstructorName());
                     JSONObject driverDetail = details.getJSONObject("Driver");
                     String driverID = driverDetail.getString("driverId");
                     String driverGivenName = driverDetail.getString("givenName");
@@ -228,11 +235,11 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
     public void onSuccess(List<DriverdataBO> driverDataList) {
         constantDriverStandings.setVisibility(View.VISIBLE);
         driverView.setVisibility(View.VISIBLE);
-
         Log.d("SUCCESS", "" + driverDataList.size());
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         HomeCardAdapter cardAdapter = new HomeCardAdapter(driverDataList, context);
         recyclerView.setAdapter(cardAdapter);
+        progressDialog.dismiss();
     }
 
     @Override
@@ -243,7 +250,6 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
         constructorRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         ConstructorAdapter cardAdapter = new ConstructorAdapter(constructorBOList, context);
         constructorRV.setAdapter(cardAdapter);
-        progressDialog.dismiss();
     }
 
     @Override
