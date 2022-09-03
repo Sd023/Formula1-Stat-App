@@ -167,13 +167,12 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
     }
 
     private void switchToActivity(String activityCode) {
-            if (activityCode.equalsIgnoreCase(DRIVER_ACTIVITY)) {
-                startActivity(new Intent(MainActivity.this, DriverStandingsActivity.class));
-            }
-            if (activityCode.equalsIgnoreCase(CONSTRUCTOR_ACTIVITY)){
-                startActivity(new Intent(MainActivity.this, ConstructorStandingsActivity.class));
-            }
-
+        if (activityCode.equalsIgnoreCase(DRIVER_ACTIVITY)) {
+            startActivity(new Intent(MainActivity.this, DriverStandingsActivity.class));
+        }
+        if (activityCode.equalsIgnoreCase(CONSTRUCTOR_ACTIVITY)) {
+            startActivity(new Intent(MainActivity.this, ConstructorStandingsActivity.class));
+        }
 
 
     }

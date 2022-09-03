@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.nio.file.Path;
 import java.util.List;
 
 public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHolder> {
@@ -22,6 +21,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
         this.driverDataList = driverDataList;
         this.context = context;
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,7 +39,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
         holder.points.setText(new StringBuilder().append("Points: ").append(driverDataList.get(position).getTotalPoints()));
         holder.standing.setText(driverDataList.get(position).getPosition());
 
-        try{
+        try {
             if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.ALBON))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.williams));
             else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.LATIFI))
@@ -70,23 +70,19 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.ferrari));
             else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.SAINZ))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.ferrari));
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.KMAG))
-            {
+            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.KMAG)) {
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.haas));
                 holder.driverName.setTextColor(context.getResources().getColor(R.color.black));
                 holder.driverNumber.setTextColor(context.getResources().getColor(R.color.black));
                 holder.points.setTextColor(context.getResources().getColor(R.color.black));
                 holder.standing.setTextColor(context.getResources().getColor(R.color.black));
-            }
-
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.SCHUMACHER)){
+            } else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.SCHUMACHER)) {
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.haas));
                 holder.driverName.setTextColor(context.getResources().getColor(R.color.black));
                 holder.driverNumber.setTextColor(context.getResources().getColor(R.color.black));
                 holder.points.setTextColor(context.getResources().getColor(R.color.black));
                 holder.standing.setTextColor(context.getResources().getColor(R.color.black));
-            }
-            else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.NORRIS))
+            } else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.NORRIS))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.mclaren));
             else if (driverDataList.get(position).getDriverCode().equalsIgnoreCase(F1Constants.RICCIARDO))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.mclaren));
@@ -96,8 +92,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.redbull_racing));
             else
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.generic));
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
