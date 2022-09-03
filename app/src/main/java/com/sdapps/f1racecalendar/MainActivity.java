@@ -2,6 +2,7 @@ package com.sdapps.f1racecalendar;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -15,7 +16,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,8 +24,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.sdapps.f1racecalendar.fragments.ConstructorStandings;
-import com.sdapps.f1racecalendar.fragments.DriverStandings;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -41,8 +39,8 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
     Context context;
     RecyclerView recyclerView, constructorRV;
     ProgressDialog progressDialog;
-    private final String DRIVER_FRAGMENT = "DRIVER_FRAGMENT";
-    private final String CONSTRUCTOR_FRAGMENT = "CONSTRUCTOR_FRAGMENT";
+    private final String DRIVER_ACTIVITY = "DRIVER_FRAGMENT";
+    private final String CONSTRUCTOR_ACTIVITY = "CONSTRUCTOR_FRAGMENT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
                     String points = details.getString("points");
                     String totalWins = details.getString("wins");
                     JSONArray con = details.getJSONArray("Constructors");
-                    for(int j=0; j<con.length(); j++){
+                    for (int j = 0; j < con.length(); j++) {
                         JSONObject d = con.getJSONObject(j);
                         String conName = d.getString("name");
                         driverdataBO.setConstructorName(conName);
@@ -159,27 +157,23 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.driverView) {
-            Toast.makeText(MainActivity.this, "DriverView!", Toast.LENGTH_SHORT).show();
-            //switchToFragment(DRIVER_FRAGMENT);
+            switchToActivity(DRIVER_ACTIVITY);
 
         }
         if (view.getId() == R.id.constructorView) {
-            Toast.makeText(MainActivity.this, "ConstructorView!", Toast.LENGTH_SHORT).show();
-            //switchToFragment(CONSTRUCTOR_FRAGMENT);
+            switchToActivity(CONSTRUCTOR_ACTIVITY);
 
         }
     }
 
-    private void switchToFragment(String fragmentCode){
-        try{
-            switch (fragmentCode){
-                case DRIVER_FRAGMENT:
-                case CONSTRUCTOR_FRAGMENT:
-
+    private void switchToActivity(String activityCode) {
+            if (activityCode.equalsIgnoreCase(DRIVER_ACTIVITY)) {
+                startActivity(new Intent(MainActivity.this, DriverStandingsActivity.class));
             }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+            if (activityCode.equalsIgnoreCase(CONSTRUCTOR_ACTIVITY)){
+                startActivity(new Intent(MainActivity.this, ConstructorStandingsActivity.class));
+            }
+
 
 
     }
