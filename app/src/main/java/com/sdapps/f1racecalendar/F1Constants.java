@@ -12,28 +12,28 @@ public class F1Constants {
     public static final String ASTON_MARTIN = "aston_martin";
     public static final String WILLIAMS = "williams";
 
-    public static final String ALBON = "ALB";
-    public static final String LATIFI = "LAT";
-    public static final String RICCIARDO = "RIC";
-    public static final String LECLERC = "LEC";
-    public static final String SAINZ = "SAI";
-    public static final String HAMILTON = "HAM";
-    public static final String RUSSELL = "RUS";
-    public static final String ALONSO = "ALO";
-    public static final String OCON = "OCO";
-    public static final String ZHOU = "ZHO";
-    public static final String BOTTAS = "BOT";
-    public static final String KMAG = "MAG";
-    public static final String SCHUMACHER = "MSC";
-    public static final String NORRIS = "NOR";
-    public static final String GASLY = "GAS";
-    public static final String TSUNODA = "TSU";
-    public static final String VETTEL = "VET";
-    public static final String VERSTAPPEN = "VER";
-    public static final String PEREZ = "PER";
-    public static final String STROLL = "STR";
+    public static final String ALBON = "albon";
+    public static final String LATIFI = "latifi";
+    public static final String RICCIARDO = "ricciardo";
+    public static final String LECLERC = "leclerc";
+    public static final String SAINZ = "sainz";
+    public static final String HAMILTON = "hamilton";
+    public static final String RUSSELL = "russell";
+    public static final String ALONSO = "alonso";
+    public static final String OCON = "ocon";
+    public static final String ZHOU = "zhou";
+    public static final String BOTTAS = "bottas";
+    public static final String KMAG = "kevin_magnussen";
+    public static final String SCHUMACHER = "mick_schumacher";
+    public static final String NORRIS = "norris";
+    public static final String GASLY = "gasly";
+    public static final String TSUNODA = "tsunoda";
+    public static final String VETTEL = "vettel";
+    public static final String VERSTAPPEN = "max_verstappen";
+    public static final String PEREZ = "perez";
+    public static final String STROLL = "stroll";
 
-    public static final String HULKENBERG = "HUL";
+    public static final String HULKENBERG = "hulkenberg";
 
     F1Constants() {
 
