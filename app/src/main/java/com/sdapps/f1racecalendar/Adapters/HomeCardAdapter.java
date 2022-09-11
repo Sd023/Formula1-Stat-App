@@ -48,6 +48,8 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.williams));
             else if (driverDataList.get(position).getDriverId().equalsIgnoreCase(F1Constants.LATIFI))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.williams));
+            else if(driverDataList.get(position).getDriverId().equalsIgnoreCase(F1Constants.NICK_DE_VRIES))
+                holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.williams));
             else if (driverDataList.get(position).getDriverId().equalsIgnoreCase(F1Constants.ALONSO))
                 holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.alpine));
             else if (driverDataList.get(position).getDriverId().equalsIgnoreCase(F1Constants.OCON))
@@ -103,7 +105,7 @@ public class HomeCardAdapter extends RecyclerView.Adapter<HomeCardAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return 5;
+        return driverDataList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

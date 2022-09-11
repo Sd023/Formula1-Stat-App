@@ -32,6 +32,7 @@ public class F1Constants {
     public static final String VERSTAPPEN = "max_verstappen";
     public static final String PEREZ = "perez";
     public static final String STROLL = "stroll";
+    public static final String NICK_DE_VRIES = "de_vries";
 
     public static final String HULKENBERG = "hulkenberg";
 
