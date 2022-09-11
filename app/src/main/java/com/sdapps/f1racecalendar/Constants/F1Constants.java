@@ -1,4 +1,4 @@
-package com.sdapps.f1racecalendar;
+package com.sdapps.f1racecalendar.Constants;
 
 public class F1Constants {
     public static final String RED_BULL = "red_bull";

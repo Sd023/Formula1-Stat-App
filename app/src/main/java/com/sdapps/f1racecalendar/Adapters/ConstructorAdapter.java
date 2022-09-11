@@ -1,4 +1,4 @@
-package com.sdapps.f1racecalendar;
+package com.sdapps.f1racecalendar.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.sdapps.f1racecalendar.Constants.F1Constants;
+import com.sdapps.f1racecalendar.Model.ConstructorBO;
+import com.sdapps.f1racecalendar.R;
 
 import java.util.List;
 

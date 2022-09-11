@@ -1,4 +1,4 @@
-package com.sdapps.f1racecalendar;
+package com.sdapps.f1racecalendar.Model;
 
 public class ConstructorBO {
     private String position;
