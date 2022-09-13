@@ -28,6 +28,7 @@ import com.sdapps.f1racecalendar.Model.ConstructorBO;
 import com.sdapps.f1racecalendar.Model.DriverdataBO;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -216,6 +217,7 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
                         constructorBOList.add(constructorBO);
 
                     }
+                    Log.d("TAG", ":----> CONS ENDED <-----");
                     onConSuccess(constructorBOList);
                 } catch (Exception e) {
                     onFail(e.toString());
@@ -229,17 +231,57 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                Log.d("TAG", ":----> CIRCUIT STARTED <------");
                 getCurrentCircuitDetails();
             }
-        }, 6000);
+        }, 19000);
     }
 
-    private void getCurrentCircuitDetails(){
-        String url = "https://ergast.com/api/f1/current.json";
+    private void getCurrentCircuitDetails() {
+        final String url = "https://ergast.com/api/f1/current/.json";
+        List<CircuitBO> circuitBOList = new ArrayList<>();
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONObject MRdata = response.getJSONObject("MRData");
+                    JSONObject raceTable = MRdata.getJSONObject("RaceTable");
+                    JSONArray jsonArray = raceTable.getJSONArray("Races");
+
+                    for(int i = 0; i<jsonArray.length();i++){
+                        CircuitBO circuitBO = new CircuitBO();
+                        JSONObject circuitDetail = jsonArray.getJSONObject(i);
+                        String raceName = circuitDetail.getString("raceName");
+                        circuitBO.setRaceName(raceName);
+                        /*JSONObject FP1sessions = circuitDetail.getJSONObject("FirstPractice");
+                        JSONObject FP2sessions = circuitDetail.getJSONObject("SecondPractice");
+                        JSONObject FP3sessions = circuitDetail.getJSONObject("ThirdPractice");
+                        JSONObject quali = circuitDetail.getJSONObject("Qualifying");
+                        Commented SESSION TIMINGS FOR NOW
+                        String raceTime = circuitDetail.getString("date");
+                        String raceDate = circuitDetail.getString("time");
+                        String FP1date = FP1sessions.getString("date");
+                        String FP1time = FP1sessions.getString("time");
+                        String FP2date = FP2sessions.getString("date");
+                        String FP2time = FP2sessions.getString("time");
+                        String FP3date = FP3sessions.getString("date");
+                        String FP3time = FP3sessions.getString("time");
+                        String qualiDate = quali.getString("date");
+                        String qualiTime = quali.getString("time");
+                        */
+                    }
+                    Log.d("TAG", ":----> CIRCUIT ENDED <------");
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, error -> onFail(error.toString()));
+        requestQueue.add(jsonObjectRequest);
 
 
     }
-
 
 
     @Override
@@ -266,6 +308,8 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
     @Override
     public void onFail(String msg) {
         Toast.makeText(this, "Message Failed", Toast.LENGTH_SHORT).show();
+        Log.d("TAG", ":----> CIRCUIT STARTED <------");
+
         progressDialog.dismiss();
 
     }
