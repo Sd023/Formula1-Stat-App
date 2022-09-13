@@ -23,6 +23,7 @@ import com.android.volley.toolbox.Volley;
 import com.sdapps.f1racecalendar.Adapters.ConstructorAdapter;
 import com.sdapps.f1racecalendar.Adapters.HomeCardAdapter;
 import com.sdapps.f1racecalendar.Listener.JSONCall;
+import com.sdapps.f1racecalendar.Model.CircuitBO;
 import com.sdapps.f1racecalendar.Model.ConstructorBO;
 import com.sdapps.f1racecalendar.Model.DriverdataBO;
 
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
     ProgressDialog progressDialog;
     private final String DRIVER_ACTIVITY = "DRIVER_FRAGMENT";
     private final String CONSTRUCTOR_ACTIVITY = "CONSTRUCTOR_FRAGMENT";
+    Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +60,8 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
         constantConstructorStandings = findViewById(R.id.constantConstructorStandings);
         driverView = findViewById(R.id.driverView);
         constructorView = findViewById(R.id.constructorView);
-
         initView();
+        handler = new Handler();
 
     }
 
@@ -223,7 +225,22 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
             }
         }, error -> onFail(error.toString()));
         requestQueue.add(jsonObjectRequest);
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getCurrentCircuitDetails();
+            }
+        }, 6000);
     }
+
+    private void getCurrentCircuitDetails(){
+        String url = "https://ergast.com/api/f1/current.json";
+
+
+    }
+
+
 
     @Override
     public void onSuccess(List<DriverdataBO> driverDataList) {
@@ -250,6 +267,11 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
     public void onFail(String msg) {
         Toast.makeText(this, "Message Failed", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
+
+    }
+
+    @Override
+    public void onCirSuccess(List<CircuitBO> circuitBOS) {
 
     }
 }
