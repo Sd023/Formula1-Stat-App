@@ -19,6 +19,11 @@ public class DriverdataBO {
     public DriverdataBO() {
     }
 
+    public DriverdataBO(String driverName, String driverPoints) {
+        this.driverName = driverName;
+        this.driverPoints = driverPoints;
+    }
+
     public DriverdataBO(String driverName, String driverNumber, String driverConstructor, String driverPoints, int driverRanking, String driverCode, String driverNationality, String DOB, String driverId, String position, String totalPoints, String wins, String constructorName) {
         this.driverName = driverName;
         this.driverNumber = driverNumber;

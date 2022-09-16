@@ -7,6 +7,8 @@
         <entry key="app/src/main/res/layout/activity_constructor_standings.xml" value="0.259963768115942" />
         <entry key="app/src/main/res/layout/activity_driver_standings.xml" value="0.259963768115942" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.37412883596367397" />
+        <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.23324275362318841" />
+        <entry key="app/src/main/res/layout/driver__list.xml" value="0.3593795334083447" />
         <entry key="app/src/main/res/layout/driver_card_standings.xml" value="0.4962292609351433" />
         <entry key="app/src/main/res/layout/fragment_constructor_standings.xml" value="0.21920289855072464" />
         <entry key="app/src/main/res/layout/fragment_driver_standings.xml" value="0.259963768115942" />
