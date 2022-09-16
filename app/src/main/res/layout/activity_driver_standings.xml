@@ -6,6 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".DriverStandingsActivity">
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="27dp"
+        android:background="@drawable/back_arrow_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/constantDriverStandings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/driver_standings"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
@@ -13,6 +36,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/constantDriverStandings" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
