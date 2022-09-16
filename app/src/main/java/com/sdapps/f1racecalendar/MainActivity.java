@@ -37,7 +37,11 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements JSONCall, View.OnClickListener {
 
     RequestQueue requestQueue;
-    TextView nextRaceTitle, day_counter, hour_counter, constantDriverStandings, constantConstructorStandings;
+    TextView nextRaceTitle;
+    TextView day_counter;
+    TextView hour_counter;
+    TextView constantDriverStandings;
+    TextView constantConstructorStandings;
     Button driverView, constructorView;
     Context context;
     RecyclerView recyclerView, constructorRV;
@@ -78,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
         nextRaceTitle.setText("Austrian Grand Prix");
         day_counter.setText(" 01");
         hour_counter.setText("24");
-        String url = "https://ergast.com/api/f1/current/driverStandings.json";
         Handler d = new Handler();
 
         d.post(new Runnable() {
@@ -88,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
                 progressDialog.setTitle("Loading..");
                 progressDialog.setMessage("Fetching driver information..");
                 progressDialog.show();
-                getDriverResponse(url);
+                getDriverResponse();
                 getConstructorDetails();
             }
         });
@@ -100,7 +103,8 @@ public class MainActivity extends AppCompatActivity implements JSONCall, View.On
     }
 
 
-    private void getDriverResponse(String url) {
+    private void getDriverResponse() {
+        final String url = "https://ergast.com/api/f1/current/driverStandings.json";
         List<DriverdataBO> driverList = new ArrayList<DriverdataBO>();
         JsonObjectRequest driverDetailsRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
             try {
