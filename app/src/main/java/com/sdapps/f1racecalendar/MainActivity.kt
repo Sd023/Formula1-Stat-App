@@ -47,10 +47,9 @@ class MainActivity() : AppCompatActivity(),
     private lateinit var progressDialog: ProgressDialog
 
 
-
     private val DRIVER_ACTIVITY = "DRIVER_FRAGMENT"
     private val CONSTRUCTOR_ACTIVITY = "CONSTRUCTOR_FRAGMENT"
-    var handler: Handler? = null
+    private var handler: Handler? = null;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -86,68 +85,68 @@ class MainActivity() : AppCompatActivity(),
             progressDialog.setTitle("Loading..")
             progressDialog.setMessage("Fetching driver information..")
             progressDialog.show()
-            driverResponse
-            constructorDetails
+            getDriverResponse()
+            getConstructorDetails()
         }
         requestQueue = Volley.newRequestQueue(this)
     }
 
     //Log.d("SUCCESS", " : " + driverFullName);
-    private val driverResponse: Unit
-        private get() {
-            val url = "https://ergast.com/api/f1/current/driverStandings.json"
-            val driverList: MutableList<DriverdataBO> = ArrayList()
-            val driverDetailsRequest =
-                JsonObjectRequest(Request.Method.GET, url, null, { response: JSONObject ->
-                    try {
-                        val MRdata: JSONObject = response.getJSONObject("MRData")
-                        val driverTable: JSONObject = MRdata.getJSONObject("StandingsTable")
-                        val driver: JSONArray = driverTable.getJSONArray("StandingsLists")
-                        val standingsObj: JSONObject = driver.getJSONObject(0)
-                        val jsonArray: JSONArray = standingsObj.getJSONArray("DriverStandings")
-                        for (i in 0 until jsonArray.length()) {
-                            val driverdataBO: DriverdataBO = DriverdataBO()
-                            val details: JSONObject = jsonArray.getJSONObject(i)
-                            val tablePosition: String = details.getString("position")
-                            val points: String = details.getString("points")
-                            val totalWins: String = details.getString("wins")
-                            val con: JSONArray = details.getJSONArray("Constructors")
-                            for (j in 0 until con.length()) {
-                                val d: JSONObject = con.getJSONObject(j)
-                                val conName: String = d.getString("name")
-                                driverdataBO.constructorName = conName
-                            }
-                            Log.d("TAG", "-----" + driverdataBO.constructorName)
-                            val driverDetail: JSONObject = details.getJSONObject("Driver")
-                            val driverID: String = driverDetail.getString("driverId")
-                            val driverGivenName: String = driverDetail.getString("givenName")
-                            val driverFamilyName: String = driverDetail.getString("familyName")
-                            val dateOfBirth: String = driverDetail.getString("dateOfBirth")
-                            val nationality: String = driverDetail.getString("nationality")
-                            val permanentNumber: String = driverDetail.getString("permanentNumber")
-                            val code: String = driverDetail.getString("code")
-                            val driverFullName: String = driverGivenName + " " + driverFamilyName
-                            driverdataBO.position = tablePosition
-                            driverdataBO.totalPoints = points
-                            driverdataBO.wins = totalWins
-                            driverdataBO.driverId = driverID
-                            driverdataBO.driverName = driverFullName
-                            driverdataBO.dob = dateOfBirth
-                            driverdataBO.driverNationality = nationality
-                            driverdataBO.driverNumber = permanentNumber
-                            driverdataBO.driverCode = code
-                            driverList.add(driverdataBO)
-                            Log.d("POINTS", " : " + " " + driverID + " " + points)
+    private fun getDriverResponse() {
+        val url = "https://ergast.com/api/f1/current/driverStandings.json"
+        val driverList: MutableList<DriverdataBO> = ArrayList()
+        val driverDetailsRequest =
+            JsonObjectRequest(Request.Method.GET, url, null, { response: JSONObject ->
+                try {
+                    val MRdata: JSONObject = response.getJSONObject("MRData")
+                    val driverTable: JSONObject = MRdata.getJSONObject("StandingsTable")
+                    val driver: JSONArray = driverTable.getJSONArray("StandingsLists")
+                    val standingsObj: JSONObject = driver.getJSONObject(0)
+                    val jsonArray: JSONArray = standingsObj.getJSONArray("DriverStandings")
+                    for (i in 0 until jsonArray.length()) {
+                        val driverdataBO: DriverdataBO = DriverdataBO()
+                        val details: JSONObject = jsonArray.getJSONObject(i)
+                        val tablePosition: String = details.getString("position")
+                        val points: String = details.getString("points")
+                        val totalWins: String = details.getString("wins")
+                        val con: JSONArray = details.getJSONArray("Constructors")
+                        for (j in 0 until con.length()) {
+                            val d: JSONObject = con.getJSONObject(j)
+                            val conName: String = d.getString("name")
+                            driverdataBO.constructorName = conName
                         }
-                        //Log.d("SUCCESS", " : " + driverFullName);
-                        onSuccess(driverList)
-
-                    } catch (ex: Exception) {
-                        ex.printStackTrace()
+                        Log.d("TAG", "-----" + driverdataBO.constructorName)
+                        val driverDetail: JSONObject = details.getJSONObject("Driver")
+                        val driverID: String = driverDetail.getString("driverId")
+                        val driverGivenName: String = driverDetail.getString("givenName")
+                        val driverFamilyName: String = driverDetail.getString("familyName")
+                        val dateOfBirth: String = driverDetail.getString("dateOfBirth")
+                        val nationality: String = driverDetail.getString("nationality")
+                        val permanentNumber: String = driverDetail.getString("permanentNumber")
+                        val code: String = driverDetail.getString("code")
+                        val driverFullName: String = driverGivenName + " " + driverFamilyName
+                        driverdataBO.position = tablePosition
+                        driverdataBO.totalPoints = points
+                        driverdataBO.wins = totalWins
+                        driverdataBO.driverId = driverID
+                        driverdataBO.driverName = driverFullName
+                        driverdataBO.dob = dateOfBirth
+                        driverdataBO.driverNationality = nationality
+                        driverdataBO.driverNumber = permanentNumber
+                        driverdataBO.driverCode = code
+                        driverList.add(driverdataBO)
+                        Log.d("POINTS", " : " + " " + driverID + " " + points)
                     }
-                }, { error: VolleyError -> onFail(error.toString()) })
-            requestQueue.add(driverDetailsRequest)
-        }
+                    //Log.d("SUCCESS", " : " + driverFullName);
+                    onSuccess(driverList)
+
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
+                }
+            }, { error: VolleyError -> onFail(error.toString()) })
+        requestQueue.add(driverDetailsRequest)
+    }
+
 
     override fun onClick(view: View) {
         if (view.id == R.id.driverView) {
@@ -160,104 +159,104 @@ class MainActivity() : AppCompatActivity(),
 
     private fun switchToActivity(activityCode: String) {
         if (activityCode.equals(DRIVER_ACTIVITY, ignoreCase = true)) {
-            startActivity(Intent(this@MainActivity, DriverStandingsActivity::class.java))
+            throw java.lang.RuntimeException("Test")
+//            startActivity(Intent(this@MainActivity, DriverStandingsActivity::class.java))
         }
         if (activityCode.equals(CONSTRUCTOR_ACTIVITY, ignoreCase = true)) {
             startActivity(Intent(this@MainActivity, ConstructorStandingsActivity::class.java))
         }
     }
 
-    private val constructorDetails: Unit
-        private get() {
-            val url = "https://ergast.com/api/f1/2022/constructorStandings.json"
-            val constructorBOList: MutableList<ConstructorBO> = ArrayList()
-            val jsonObjectRequest =
-                JsonObjectRequest(Request.Method.GET, url, null, Response.Listener { response ->
+    private fun getConstructorDetails() {
+        val url = "https://ergast.com/api/f1/2022/constructorStandings.json"
+        val constructorBOList: MutableList<ConstructorBO> = ArrayList()
+        val jsonObjectRequest =
+            JsonObjectRequest(Request.Method.GET, url, null, Response.Listener { response ->
+                try {
+                    val MRdata = response.getJSONObject("MRData")
+                    val driverTable = MRdata.getJSONObject("StandingsTable")
+                    val driver = driverTable.getJSONArray("StandingsLists")
+                    val standingsObj = driver.getJSONObject(0)
+                    val jsonArray = standingsObj.getJSONArray("ConstructorStandings")
+                    for (i in 0 until jsonArray.length()) {
+                        val constructorBO = ConstructorBO()
+                        val consDetail = jsonArray.getJSONObject(i)
+                        val position = consDetail.getString("position")
+                        val wins = consDetail.getString("wins")
+                        val points = consDetail.getString("points")
+                        val cons = consDetail.getJSONObject("Constructor")
+                        val constructorId = cons.getString("constructorId")
+                        val consName = cons.getString("name")
+                        val consNation = cons.getString("nationality")
+                        constructorBO.constructorName = consName
+                        constructorBO.points = points
+                        constructorBO.position = position
+                        constructorBO.wins = wins
+                        constructorBO.nationality = consNation
+                        constructorBO.conId = constructorId
+                        constructorBOList.add(constructorBO)
+                    }
+                    Log.d("TAG", ":----> CONS ENDED <-----")
+                    onConSuccessd(constructorBOList)
+                } catch (e: Exception) {
+                    onFail(e.toString())
+                    e.printStackTrace()
+                }
+            }, { error: VolleyError -> onFail(error.toString()) })
+        requestQueue!!.add(jsonObjectRequest)
+        handler!!.postDelayed(object : Runnable {
+            override fun run() {
+                Log.d("TAG", ":----> CIRCUIT STARTED <------")
+                getCurrentCircuitDetails()
+            }
+        }, 19000)
+    }
+
+    private fun getCurrentCircuitDetails() {
+
+        val url = "https://ergast.com/api/f1/current.json"
+        val circuitBOList: List<CircuitBO> = ArrayList()
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.GET,
+            url,
+            null,
+            object : Response.Listener<JSONObject> {
+                override fun onResponse(response: JSONObject) {
                     try {
                         val MRdata = response.getJSONObject("MRData")
-                        val driverTable = MRdata.getJSONObject("StandingsTable")
-                        val driver = driverTable.getJSONArray("StandingsLists")
-                        val standingsObj = driver.getJSONObject(0)
-                        val jsonArray = standingsObj.getJSONArray("ConstructorStandings")
+                        val raceTable = MRdata.getJSONObject("RaceTable")
+                        val jsonArray = raceTable.getJSONArray("Races")
                         for (i in 0 until jsonArray.length()) {
-                            val constructorBO = ConstructorBO()
-                            val consDetail = jsonArray.getJSONObject(i)
-                            val position = consDetail.getString("position")
-                            val wins = consDetail.getString("wins")
-                            val points = consDetail.getString("points")
-                            val cons = consDetail.getJSONObject("Constructor")
-                            val constructorId = cons.getString("constructorId")
-                            val consName = cons.getString("name")
-                            val consNation = cons.getString("nationality")
-                            constructorBO.constructorName = consName
-                            constructorBO.points = points
-                            constructorBO.position = position
-                            constructorBO.wins = wins
-                            constructorBO.nationality = consNation
-                            constructorBO.conId = constructorId
-                            constructorBOList.add(constructorBO)
+                            val circuitBO = CircuitBO()
+                            val circuitDetail = jsonArray.getJSONObject(i)
+                            val raceName = circuitDetail.getString("raceName")
+                            circuitBO.raceName = raceName
+                            /*JSONObject FP1sessions = circuitDetail.getJSONObject("FirstPractice");
+                    JSONObject FP2sessions = circuitDetail.getJSONObject("SecondPractice");
+                    JSONObject FP3sessions = circuitDetail.getJSONObject("ThirdPractice");
+                    JSONObject quali = circuitDetail.getJSONObject("Qualifying");
+                    Commented SESSION TIMINGS FOR NOW
+                    String raceTime = circuitDetail.getString("date");
+                    String raceDate = circuitDetail.getString("time");
+                    String FP1date = FP1sessions.getString("date");
+                    String FP1time = FP1sessions.getString("time");
+                    String FP2date = FP2sessions.getString("date");
+                    String FP2time = FP2sessions.getString("time");
+                    String FP3date = FP3sessions.getString("date");
+                    String FP3time = FP3sessions.getString("time");
+                    String qualiDate = quali.getString("date");
+                    String qualiTime = quali.getString("time");
+                    */
                         }
-                        Log.d("TAG", ":----> CONS ENDED <-----")
-                        onConSuccessd(constructorBOList)
+                        Log.d("TAG", ":----> CIRCUIT ENDED <------")
                     } catch (e: Exception) {
-                        onFail(e.toString())
                         e.printStackTrace()
                     }
-                }, { error: VolleyError -> onFail(error.toString()) })
-            requestQueue!!.add(jsonObjectRequest)
-            handler!!.postDelayed(object : Runnable {
-                override fun run() {
-                    Log.d("TAG", ":----> CIRCUIT STARTED <------")
-                    currentCircuitDetails
                 }
-            }, 19000)
-        }
-
-    private val currentCircuitDetails: Unit
-        private get() {
-            val url = "https://ergast.com/api/f1/current.json"
-            val circuitBOList: List<CircuitBO> = ArrayList()
-            val jsonObjectRequest = JsonObjectRequest(
-                Request.Method.GET,
-                url,
-                null,
-                object : Response.Listener<JSONObject> {
-                    override fun onResponse(response: JSONObject) {
-                        try {
-                            val MRdata = response.getJSONObject("MRData")
-                            val raceTable = MRdata.getJSONObject("RaceTable")
-                            val jsonArray = raceTable.getJSONArray("Races")
-                            for (i in 0 until jsonArray.length()) {
-                                val circuitBO = CircuitBO()
-                                val circuitDetail = jsonArray.getJSONObject(i)
-                                val raceName = circuitDetail.getString("raceName")
-                                circuitBO.raceName = raceName
-                                /*JSONObject FP1sessions = circuitDetail.getJSONObject("FirstPractice");
-                        JSONObject FP2sessions = circuitDetail.getJSONObject("SecondPractice");
-                        JSONObject FP3sessions = circuitDetail.getJSONObject("ThirdPractice");
-                        JSONObject quali = circuitDetail.getJSONObject("Qualifying");
-                        Commented SESSION TIMINGS FOR NOW
-                        String raceTime = circuitDetail.getString("date");
-                        String raceDate = circuitDetail.getString("time");
-                        String FP1date = FP1sessions.getString("date");
-                        String FP1time = FP1sessions.getString("time");
-                        String FP2date = FP2sessions.getString("date");
-                        String FP2time = FP2sessions.getString("time");
-                        String FP3date = FP3sessions.getString("date");
-                        String FP3time = FP3sessions.getString("time");
-                        String qualiDate = quali.getString("date");
-                        String qualiTime = quali.getString("time");
-                        */
-                            }
-                            Log.d("TAG", ":----> CIRCUIT ENDED <------")
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                        }
-                    }
-                },
-                { error: VolleyError -> onFail(error.toString()) })
-            requestQueue.add(jsonObjectRequest)
-        }
+            },
+            { error: VolleyError -> onFail(error.toString()) })
+        requestQueue.add(jsonObjectRequest)
+    }
 
     override fun onSuccess(driverDataList: List<DriverdataBO?>?) {
         context = this.applicationContext
@@ -282,8 +281,8 @@ class MainActivity() : AppCompatActivity(),
         progressDialog.dismiss()
     }
 
-     fun onConSuccessd(constructorBOList: List<ConstructorBO>) {
-         context = this.applicationContext
+    fun onConSuccessd(constructorBOList: List<ConstructorBO>) {
+        context = this.applicationContext
         constantConstructorStandings.visibility = View.VISIBLE
         constructorView.visibility = View.VISIBLE
         Log.d("CONSUCCESS", "" + constructorBOList.size)
