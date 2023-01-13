@@ -3,15 +3,20 @@ package com.sdapps.f1racecalendar;
 public class DriverdataBO {
 
     private String driverName;
+    private String key;
     private String driverNumber;
     private String driverConstructor;
     private String driverPoints;
     private int driverRanking;
     private String driverCode;
     private String driverNationality;
+    private String driverImgUrl;
 
     public DriverdataBO() {
     }
+
+
+
 
     public DriverdataBO(String driverName, String driverNumber, String driverConstructor, String driverPoints, int driverRanking, String driverCode, String driverNationality) {
         this.driverName = driverName;
@@ -77,5 +82,21 @@ public class DriverdataBO {
 
     public void setDriverNationality(String driverNationality) {
         this.driverNationality = driverNationality;
+    }
+
+    public String getDriverImgUrl() {
+        return driverImgUrl;
+    }
+
+    public void setDriverImgUrl(String driverImgUrl) {
+        this.driverImgUrl = driverImgUrl;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

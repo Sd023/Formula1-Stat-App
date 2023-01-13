@@ -49,6 +49,7 @@ class MainActivity() : AppCompatActivity(),
 
     private val DRIVER_ACTIVITY = "DRIVER_FRAGMENT"
     private val CONSTRUCTOR_ACTIVITY = "CONSTRUCTOR_FRAGMENT"
+    private val homeHelper: HomeHelper? = HomeHelper()
     var handler: Handler? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +64,7 @@ class MainActivity() : AppCompatActivity(),
         constantDriverStandings = findViewById(R.id.constantDriverStandings)
         constantConstructorStandings = findViewById(R.id.constantConstructorStandings)
         driverView = findViewById(R.id.driverView)
+        homeHelper!!.getImage()
         constructorView = findViewById(R.id.constructorView)
         initView()
         handler = Handler()
