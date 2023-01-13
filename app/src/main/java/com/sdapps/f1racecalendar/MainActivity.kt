@@ -28,7 +28,12 @@ import com.sdapps.f1racecalendar.Adapters.ConstructorAdapter
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
+import io.appwrite.Client
+import io.appwrite.ID
+import io.appwrite.services.Account
+import kotlinx.coroutines.*
 import java.lang.Exception
+import java.lang.Runnable
 import java.util.ArrayList
 
 class MainActivity() : AppCompatActivity(),
@@ -55,6 +60,7 @@ class MainActivity() : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        context = this.applicationContext
         nextRaceTitle = findViewById(R.id.nextRaceTitle)
         dayCounter = findViewById(R.id.day_counter)
         hourCounter = findViewById(R.id.hour_counter)
@@ -168,7 +174,7 @@ class MainActivity() : AppCompatActivity(),
     }
 
     private val constructorDetails: Unit
-        private get() {
+        get() {
             val url = "https://ergast.com/api/f1/2022/constructorStandings.json"
             val constructorBOList: MutableList<ConstructorBO> = ArrayList()
             val jsonObjectRequest =
