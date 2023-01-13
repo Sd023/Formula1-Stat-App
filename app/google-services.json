@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "26443720556",
+    "project_id": "f1-race-calendar",
+    "storage_bucket": "f1-race-calendar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26443720556:android:180dcdfa7c4b185ab7f549",
+        "android_client_info": {
+          "package_name": "com.sdapps.f1racecalendar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "26443720556-9f303rbejoiog5g67js8ujsjvidmrl0d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sdapps.f1racecalendar",
+            "certificate_hash": "58b3a1adae9d8ab48964de91fb79c8bd08c723ed"
+          }
+        },
+        {
+          "client_id": "26443720556-57q4togfj3ij2o93rl0vm2pet0qp086q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6SmL5ifywKcpkXe3qaZnqp8ZaAqF3lvI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "26443720556-57q4togfj3ij2o93rl0vm2pet0qp086q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="10dp"
     android:elevation="20dp"
-    app:cardCornerRadius="20dp">
+    app:cardCornerRadius="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="6dp">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/driverImage"
-            android:layout_width="91dp"
-            android:layout_height="91dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="4dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,10 +27,11 @@
             android:id="@+id/driverName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="2dp"
             android:maxLines="2"
             android:padding="6dp"
-            android:text=""
+            android:text="Max Verstappen"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@+id/driverImage"
@@ -35,58 +39,48 @@
 
         <TextView
             android:id="@+id/driverTeamNo"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="6dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="2dp"
+            android:maxLines="2"
+            android:padding="3dp"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="6sp"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/driverImage"
-            app:layout_constraintTop_toBottomOf="@+id/driverName" />
+            app:layout_constraintTop_toBottomOf="@+id/driverName"
+            app:layout_constraintWidth_percent="0.388" />
 
         <TextView
             android:id="@+id/standing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="2dp"
-            android:padding="2dp"
-            android:paddingEnd="10dp"
-            android:text="1"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="4dp"
+            android:text="01"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/driverName"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/constant_points"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Points: "
-            android:textColor="@color/white"
-            android:textSize="6sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/points"
-            app:layout_constraintHorizontal_bias="0.918"
-            app:layout_constraintStart_toStartOf="@+id/driverTeamNo"
-            app:layout_constraintTop_toBottomOf="@+id/driverTeamNo"
-            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/points"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="16dp"
             android:text="172"
             android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.874"
-            app:layout_constraintStart_toEndOf="@+id/driverImage"
-            app:layout_constraintTop_toBottomOf="@+id/driverTeamNo" />
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/driverTeamNo"
+            app:layout_constraintTop_toBottomOf="@+id/standing" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
