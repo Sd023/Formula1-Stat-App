@@ -1,41 +1,35 @@
 package com.sdapps.f1racecalendar
 
 
-import androidx.appcompat.app.AppCompatActivity
-import com.sdapps.f1racecalendar.Listener.DataListeners
-import com.android.volley.RequestQueue
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import android.app.ProgressDialog
 import android.content.Context
-import android.os.Bundle
-import com.android.volley.toolbox.Volley
-import com.sdapps.f1racecalendar.Model.DriverdataBO
-import com.android.volley.toolbox.JsonObjectRequest
-import org.json.JSONObject
-import org.json.JSONArray
-import com.android.volley.VolleyError
 import android.content.Intent
+import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import com.sdapps.f1racecalendar.Model.ConstructorBO
-import com.sdapps.f1racecalendar.Model.CircuitBO
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.sdapps.f1racecalendar.Adapters.HomeCardAdapter
-import com.sdapps.f1racecalendar.Adapters.ConstructorAdapter
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
+import com.android.volley.RequestQueue
 import com.android.volley.Response
-import io.appwrite.Client
-import io.appwrite.ID
-import io.appwrite.services.Account
-import kotlinx.coroutines.*
-import java.lang.Exception
-import java.lang.Runnable
-import java.util.ArrayList
+import com.android.volley.VolleyError
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import com.sdapps.f1racecalendar.Adapters.ConstructorAdapter
+import com.sdapps.f1racecalendar.Adapters.HomeCardAdapter
+import com.sdapps.f1racecalendar.Listener.DataListeners
+import com.sdapps.f1racecalendar.Model.CircuitBO
+import com.sdapps.f1racecalendar.Model.ConstructorBO
+import com.sdapps.f1racecalendar.Model.DriverdataBO
+import org.json.JSONArray
+import org.json.JSONObject
 
+/*develop branch commit*/
 class MainActivity() : AppCompatActivity(),
     DataListeners, View.OnClickListener {
     private lateinit var requestQueue: RequestQueue
